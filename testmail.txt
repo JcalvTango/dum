@@ -1,0 +1,7 @@
+From: "Pertamina Notification" <notification@pertamina.com>
+To: "M Abdillah" <mabdillah@deloitte.com>
+Subject: This is a test
+
+Hi Abdillah,
+I'm sending this mail with curl thru my account.
+Bye!
