@@ -1,0 +1,401 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE ObjectConfig PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<ObjectConfig created="1780588352605" id="ac1e0c779e9315c4819e9356145d00fc" modified="" name="Identity" significantModified="">
+  <Attributes>
+    <Map>
+      <entry key="defaultIdentityType">
+        <value>
+          <IdentityTypeDefinition name="IIQ_default">
+            <DisallowedAttributes>
+              <String>softwareVersion</String>
+              <String>administrator</String>
+            </DisallowedAttributes>
+          </IdentityTypeDefinition>
+        </value>
+      </entry>
+      <entry key="identityTypeDefinitions">
+        <value>
+          <List>
+            <IdentityTypeDefinition displayName="identity_type_employee" name="employee">
+              <DisallowedAttributes>
+                <String>softwareVersion</String>
+                <String>administrator</String>
+              </DisallowedAttributes>
+            </IdentityTypeDefinition>
+            <IdentityTypeDefinition displayName="identity_type_contractor" name="contractor">
+              <DisallowedAttributes>
+                <String>softwareVersion</String>
+                <String>administrator</String>
+              </DisallowedAttributes>
+            </IdentityTypeDefinition>
+            <IdentityTypeDefinition displayName="identity_type_partner" name="partner">
+              <DisallowedAttributes>
+                <String>softwareVersion</String>
+                <String>administrator</String>
+              </DisallowedAttributes>
+            </IdentityTypeDefinition>
+            <IdentityTypeDefinition displayName="identity_type_rpa" name="rpa">
+              <DisallowedAttributes>
+                <String>manager</String>
+              </DisallowedAttributes>
+              <ManagerCertifierAttribute>administrator</ManagerCertifierAttribute>
+            </IdentityTypeDefinition>
+            <IdentityTypeDefinition displayName="identity_type_service" name="service">
+              <DisallowedAttributes>
+                <String>softwareVersion</String>
+              </DisallowedAttributes>
+              <ManagerCertifierAttribute>administrator</ManagerCertifierAttribute>
+            </IdentityTypeDefinition>
+          </List>
+        </value>
+      </entry>
+    </Map>
+  </Attributes>
+  <ObjectAttribute displayName="att_user_name" name="name" silent="true" system="true" type="string"/>
+  <ObjectAttribute displayName="att_detected_roles" groupFactory="true" name="bundles" system="true" type="string"/>
+  <ObjectAttribute displayName="att_detected_role_summary" name="bundleSummary" silent="true" system="true" type="string"/>
+  <ObjectAttribute displayName="att_assigned_roles" groupFactory="true" name="assignedRoles" system="true" type="string"/>
+  <ObjectAttribute displayName="att_assigned_role_summary" name="assignedRoleSummary" silent="true" system="true" type="string"/>
+  <ObjectAttribute displayName="att_exceptions" name="exceptions" silent="true" system="true" type="string"/>
+  <ObjectAttribute displayName="att_last_refresh" name="lastRefresh" silent="true" system="true" type="string"/>
+  <ObjectAttribute displayName="att_last_login" name="lastLogin" silent="true" system="true" type="string"/>
+  <ObjectAttribute displayName="att_capabilities" name="capabilities" system="true" type="string"/>
+  <ObjectAttribute displayName="att_composite_score" name="scorecard.compositeScore" silent="true" system="true" type="string"/>
+  <ObjectAttribute displayName="att_manager_status" name="managerStatus" system="true" type="boolean"/>
+  <ObjectAttribute displayName="att_rights" name="rights" system="true" type="string"/>
+  <ObjectAttribute displayName="att_workgroups" name="workgroups" system="true" type="string"/>
+  <ObjectAttribute displayName="att_identity_type" name="type" standard="true" type="string"/>
+  <ObjectAttribute displayName="att_software_version" name="softwareVersion" standard="true" type="string"/>
+  <ObjectAttribute displayName="att_administrator" name="administrator" standard="true" type="sailpoint.object.Identity"/>
+  <ObjectAttribute displayName="att_manager" editMode="ReadOnly" groupFactory="true" name="manager" standard="true" type="sailpoint.object.Identity">
+    <AttributeSource name="SuperiorEmployeeId">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="att_display_name" editMode="ReadOnly" name="displayName" standard="true" type="string">
+    <AttributeSource name="EmployeeFullName">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="att_last_name" editMode="ReadOnly" name="lastname" standard="true" type="string">
+    <AttributeSource name="AppRule: New - Identity Mapping - Lastname HRIS+">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+      <RuleRef>
+        <Reference class="sailpoint.object.Rule" id="7f0000019be015ce819c2b993f340378" name="New - Identity Mapping - Lastname"/>
+      </RuleRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Employee Id" editMode="ReadOnly" extendedNumber="1" name="EmployeeId" type="string">
+    <AttributeSource name="EmployeeId">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="att_first_name" editMode="ReadOnly" name="firstname" standard="true" type="string">
+    <AttributeSource name="AppRule: New - Identity Mapping - Firstname HRIS+">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+      <RuleRef>
+        <Reference class="sailpoint.object.Rule" id="7f0000019be015ce819c2b988d9d0377" name="New - Identity Mapping - Firstname"/>
+      </RuleRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Departement ID" editMode="ReadOnly" name="departementId" type="string">
+    <AttributeSource name="DepartementId">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Departement Name" editMode="ReadOnly" name="departementName" type="string">
+    <AttributeSource name="DepartementName">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Division ID" editMode="ReadOnly" name="divisionId" type="string">
+    <AttributeSource name="DivisionId">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Division Name" editMode="ReadOnly" name="divisionName" type="string">
+    <AttributeSource name="DivisionName">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Company Code" editMode="ReadOnly" name="companyCode" type="string">
+    <AttributeSource name="EmployeeAssignedCompanyCode">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Company Text" editMode="ReadOnly" name="companyText" type="string">
+    <AttributeSource name="EmployeeAssignedCompanyText">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Group Code" editMode="ReadOnly" name="groupCode" type="string">
+    <AttributeSource name="EmployeeAssignedEmployeeGroupCode">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Area Code" editMode="ReadOnly" name="areaCode" type="string">
+    <AttributeSource name="EmployeeAssignedPersonnelAreaCode">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Area Text" editMode="ReadOnly" name="areaText" type="string">
+    <AttributeSource name="EmployeeAssignedPersonnelAreaText">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Assigned Start Date" editMode="ReadOnly" name="assignedStartDate" type="string">
+    <AttributeSource name="EmployeeAssignedStartDate">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Work Contract Code" editMode="ReadOnly" name="workContractCode" type="string">
+    <AttributeSource name="EmployeeAssignedWorkContractCode">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Work Contract Name" editMode="ReadOnly" name="workContractName" type="string">
+    <AttributeSource name="EmployeeAssignedWorkContractText">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Assignment ID" editMode="ReadOnly" name="assignmentId" type="string">
+    <AttributeSource name="EmployeeAssignmentId">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Job ID" editMode="ReadOnly" name="jobId" type="string">
+    <AttributeSource name="JobId">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Inactive" editMode="ReadOnly" name="inactive" standard="true" type="boolean">
+    <AttributeSource name="AppRule: New - Identity Mapping - Inactive HRIS+">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+      <RuleRef>
+        <Reference class="sailpoint.object.Rule" id="7f0000019be015ce819c2ba86a9b03ba" name="New - Identity Mapping - Inactive"/>
+      </RuleRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="sAMAccountName" editMode="ReadOnly" name="sAMAccountName" type="string">
+    <AttributeSource name="sAMAccountName">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab72cee8000c" name="Active Directory"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Job Name" editMode="UntilFeedValueChanges" extendedNumber="2" name="jobName" type="string">
+    <AttributeSource name="JobName">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+    <AttributeTargets>
+      <AttributeTarget name="title" provisionAllAccounts="true">
+        <ApplicationRef>
+          <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab72cee8000c" name="Active Directory"/>
+        </ApplicationRef>
+      </AttributeTarget>
+    </AttributeTargets>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Group Name" editMode="UntilFeedValueChanges" extendedNumber="3" name="groupName" type="string">
+    <AttributeSource name="EmployeeAssignedEmployeeGroupText">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Client" editMode="ReadOnly" name="client" type="string">
+    <AttributeSource name="Client">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Assigned End Date" editMode="ReadOnly" name="assignedEndDate" type="string">
+    <AttributeSource name="EmployeeAssignedEndDate">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Subarea Code" editMode="ReadOnly" name="subareaCode" type="string">
+    <AttributeSource name="EmployeeAssignedPersonnelSubareaCode">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Subarea Text" editMode="ReadOnly" name="subareaText" type="string">
+    <AttributeSource name="EmployeeAssignedPersonnelSubareaText">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Employee Hiring Date" editMode="ReadOnly" name="employeeHiringDate" type="string">
+    <AttributeSource name="EmployeeHiringDate">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Pension Date" editMode="ReadOnly" name="pensionDate" type="string">
+    <AttributeSource name="EmployeePlannedPensionDate">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="OrganizationId" editMode="ReadOnly" name="organizationId" type="string">
+    <AttributeSource name="OrganizationId">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="OrganizationName" editMode="ReadOnly" name="organizationName" type="string">
+    <AttributeSource name="OrganizationName">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Position Name Long Text" editMode="ReadOnly" name="positionNameLongText" type="string">
+    <AttributeSource name="PositionNameLongText">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Start Period" editMode="ReadOnly" name="startPeriod" type="string">
+    <AttributeSource name="StartPeriod">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Position Id" editMode="UntilFeedValueChanges" extendedNumber="4" name="positionId" type="string">
+    <AttributeSource name="PositionId">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Email" editMode="UntilFeedValueChanges" name="email" standard="true" type="string">
+    <AttributeSource name="EmployeeCoorporateEmail">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Position Name" editMode="UntilFeedValueChanges" extendedNumber="5" name="positionName" type="string">
+    <AttributeSource name="PositionName">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Last Logon AD" editMode="ReadOnly" extendedNumber="6" name="lasLogonAD" type="string">
+    <AttributeSource name="lastLogonTimestamp">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab72cee8000c" name="Active Directory"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Status Code" editMode="ReadOnly" extendedNumber="7" name="statusCode" type="string">
+    <AttributeSource name="EmploymentStatusCode">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Type Code" editMode="ReadOnly" extendedNumber="8" name="typeCode" type="string">
+    <AttributeSource name="EmployeeActionTypeCode">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Cost Center Id" editMode="ReadOnly" extendedNumber="9" name="costCenterId" type="string">
+    <AttributeSource name="EmployeeAssignedCostCenterId">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Personal Email" editMode="ReadOnly" extendedNumber="10" name="personalEmail" type="string">
+    <AttributeSource name="EmployeePersonalEmail">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Phone Number" editMode="ReadOnly" extendedNumber="11" name="phoneNumber" type="string">
+    <AttributeSource name="EmployeeMobilePhoneNumber">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Manager Name" editMode="ReadOnly" extendedNumber="12" name="managerName" type="string">
+    <AttributeSource name="SuperiorFullName">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Manager Email" editMode="ReadOnly" extendedNumber="13" name="managerEmail" type="string">
+    <AttributeSource name="SuperiorCoorporateEmail">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+  <ObjectAttribute displayName="Is Superior PJS" editMode="ReadOnly" extendedNumber="14" name="isSuperiorPjs" type="string">
+    <AttributeSource name="IsSuperiorPJS">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="ac1e0c779eab127e819eab7311df0012" name="HRIS+"/>
+      </ApplicationRef>
+    </AttributeSource>
+  </ObjectAttribute>
+</ObjectConfig>
