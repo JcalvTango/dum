@@ -1,0 +1,686 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 18,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 17,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "GoWHygcSk"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-GrYlRd"
+              },
+              "custom": {
+                "align": "center",
+                "displayMode": "color-background",
+                "filterable": true,
+                "inspect": false
+              },
+              "decimals": 2,
+              "mappings": [
+                {
+                  "options": {
+                    "172.18.101.102:9100": {
+                      "index": 23,
+                      "text": "172.18.101.102 - DB3 - Prod DC"
+                    },
+                    "172.18.101.103:9100": {
+                      "index": 24,
+                      "text": "172.18.101.103 - MYSQLROUTER1 - Prod DC"
+                    },
+                    "172.18.62.62:9100": {
+                      "index": 0,
+                      "text": "172.18.62.62 - AM1 - Prod DC"
+                    },
+                    "172.18.62.63:9100": {
+                      "index": 1,
+                      "text": "172.18.62.63 - AM2 - Prod DC"
+                    },
+                    "172.18.62.64:9100": {
+                      "index": 2,
+                      "text": "172.18.62.64 - AM3 - Prod DC"
+                    },
+                    "172.18.62.65:9100": {
+                      "index": 3,
+                      "text": "172.18.62.65 - AM4 - Prod DC"
+                    },
+                    "172.18.62.66:9100": {
+                      "index": 4,
+                      "text": "172.18.62.66 - BCK1 - Prod DC"
+                    },
+                    "172.18.62.67:9100": {
+                      "index": 5,
+                      "text": "172.18.62.67 - CTS1 - Prod DC"
+                    },
+                    "172.18.62.68:9100": {
+                      "index": 6,
+                      "text": "172.18.62.68 - CTS2 - Prod DC"
+                    },
+                    "172.18.62.69:9100": {
+                      "index": 7,
+                      "text": "172.18.62.69 - CTS3 - Prod DC"
+                    },
+                    "172.18.62.70:9100": {
+                      "index": 8,
+                      "text": "172.18.62.70 - CTS4 - Prod DC"
+                    },
+                    "172.18.62.71:9100": {
+                      "index": 9,
+                      "text": "172.18.62.71 - DB1 - Prod DC DB Archival"
+                    },
+                    "172.18.62.72:9100": {
+                      "index": 10,
+                      "text": "172.18.62.72 - DB2 - Prod DC DB Archival"
+                    },
+                    "172.18.62.73:9100": {
+                      "index": 11,
+                      "text": "172.18.62.73 - DIR1 - Prod DC"
+                    },
+                    "172.18.62.74:9100": {
+                      "index": 12,
+                      "text": "172.18.62.74 - DIR2 - Prod DC"
+                    },
+                    "172.18.62.75:9100": {
+                      "index": 13,
+                      "text": "172.18.62.75 - DIR3 - Prod DC"
+                    },
+                    "172.18.62.76:9100": {
+                      "index": 14,
+                      "text": "172.18.62.76 - DIR4 - Prod DC"
+                    },
+                    "172.18.62.77:9100": {
+                      "index": 15,
+                      "text": "172.18.62.77 - IDM1 - Prod DC"
+                    },
+                    "172.18.62.78:9100": {
+                      "index": 16,
+                      "text": "172.18.62.78 - IDM2 - Prod DC"
+                    },
+                    "172.18.62.79:9100": {
+                      "index": 17,
+                      "text": "172.18.62.79 - IDM3 - Prod DC"
+                    },
+                    "172.18.62.80:9100": {
+                      "index": 18,
+                      "text": "172.18.62.80 - IDM4 - Prod DC"
+                    },
+                    "172.18.62.81:9100": {
+                      "index": 19,
+                      "text": "172.18.62.81 - IG1 - Prod DC"
+                    },
+                    "172.18.62.82:9100": {
+                      "index": 20,
+                      "text": "172.18.62.82 - IG2 - Prod DC"
+                    },
+                    "172.18.62.83:9100": {
+                      "index": 21,
+                      "text": "172.18.62.83 - IG3 - Prod DC"
+                    },
+                    "172.18.62.84:9100": {
+                      "index": 22,
+                      "text": "172.18.62.84 - IG4 - Prod DC"
+                    },
+                    "172.18.71.211:9100": {
+                      "index": 25,
+                      "text": "172.18.71.211 - DB4 - Prod DC"
+                    },
+                    "172.18.71.212:9100": {
+                      "index": 26,
+                      "text": "172.18.71.212 - DB5 - Prod DC"
+                    }
+                  },
+                  "type": "value"
+                }
+              ],
+              "max": 1,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "percentunit"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Server Name"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.width",
+                    "value": 305
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 27,
+            "w": 24,
+            "x": 0,
+            "y": 1
+          },
+          "id": 12,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "9.2.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "GoWHygcSk"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "(sum by(instance) (irate(node_cpu_seconds_total{job=\"node\", mode!=\"idle\"}[1m])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{job=\"node\"}[1m]))))",
+              "format": "table",
+              "legendFormat": "CPU",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "GoWHygcSk"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "100 * (1 - ((max_over_time(node_memory_MemFree_bytes[1m]) + max_over_time(node_memory_Cached_bytes[1m]) + max_over_time(node_memory_Buffers_bytes[1m])) / max_over_time(node_memory_MemTotal_bytes[1m])))/ 100",
+              "format": "table",
+              "hide": false,
+              "legendFormat": "Memory",
+              "range": true,
+              "refId": "B"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "GoWHygcSk"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "1 - (1 * ((node_filesystem_avail_bytes{device=\"/dev/mapper/rhel-root\", fstype=\"xfs\", job=\"node\", mountpoint=\"/\"}) / (node_filesystem_size_bytes{device=\"/dev/mapper/rhel-root\", fstype=\"xfs\", job=\"node\", mountpoint=\"/\"})))",
+              "format": "table",
+              "hide": false,
+              "legendFormat": "Storage",
+              "range": true,
+              "refId": "C"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "GoWHygcSk"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "1 - (1 * ((node_filesystem_avail_bytes{device=\"/dev/mapper/vgdata-lvdata\", fstype=\"ext4\", job=\"node\", mountpoint=\"/database\"}) / (node_filesystem_size_bytes{device=\"/dev/mapper/vgdata-lvdata\", fstype=\"ext4\", job=\"node\", mountpoint=\"/database\"})))",
+              "format": "table",
+              "hide": false,
+              "legendFormat": "Storage",
+              "range": true,
+              "refId": "E"
+            }
+          ],
+          "title": "Utilization - IAM Staging",
+          "transformations": [
+            {
+              "id": "groupBy",
+              "options": {
+                "fields": {
+                  "Value #A": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Value #B": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Value #C": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Value #D": {
+                    "aggregations": []
+                  },
+                  "Value #E": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "instance": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  }
+                }
+              }
+            },
+            {
+              "id": "joinByField",
+              "options": {
+                "byField": "instance",
+                "mode": "outer"
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {},
+                "indexByName": {},
+                "renameByName": {
+                  "Value #A (max)": "CPU (max)",
+                  "Value #B (max)": "Memory (max)",
+                  "Value #C (max)": "Storage (max) ",
+                  "Value #C (min)": "Status",
+                  "Value #D (max)": "Storage (max)",
+                  "Value #D (min)": "Status (min)",
+                  "Value #E (max)": "Storage DB (max)",
+                  "instance": "Server Name"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "GoWHygcSk"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-GrYlRd"
+              },
+              "custom": {
+                "align": "center",
+                "displayMode": "color-background",
+                "filterable": true,
+                "inspect": false
+              },
+              "decimals": 2,
+              "mappings": [
+                {
+                  "options": {
+                    "172.18.62.62:8080": {
+                      "index": 0,
+                      "text": "172.18.62.62 - AM1 - Prod DC"
+                    },
+                    "172.18.62.63:8080": {
+                      "index": 1,
+                      "text": "172.18.62.63 - AM2 - Prod DC"
+                    },
+                    "172.18.62.64:8080": {
+                      "index": 2,
+                      "text": "172.18.62.64 - AM3 - Prod DC"
+                    },
+                    "172.18.62.65:8080": {
+                      "index": 3,
+                      "text": "172.18.62.65 - AM4 - Prod DC"
+                    },
+                    "172.18.62.67:28443": {
+                      "index": 4,
+                      "text": "172.18.62.67 - CTS1 - Prod DC Replication"
+                    },
+                    "172.18.62.67:8443": {
+                      "index": 5,
+                      "text": "172.18.62.67 - CTS1 - Prod DC"
+                    },
+                    "172.18.62.68:8443": {
+                      "index": 6,
+                      "text": "172.18.62.68 - CTS2 - Prod DC"
+                    },
+                    "172.18.62.69:28443": {
+                      "index": 7,
+                      "text": "172.18.62.69 - CTS3 - Prod DC Replication"
+                    },
+                    "172.18.62.69:8443": {
+                      "index": 8,
+                      "text": "172.18.62.69 - CTS3 - Prod DC"
+                    },
+                    "172.18.62.70:8443": {
+                      "index": 9,
+                      "text": "172.18.62.70 - CTS4 - Prod DC"
+                    },
+                    "172.18.62.71:9104": {
+                      "index": 10,
+                      "text": "172.18.62.71 - MySQL DB"
+                    },
+                    "172.18.62.73:18443": {
+                      "index": 11,
+                      "text": "172.18.62.73 - DIR1 - Prod DC Config Store"
+                    },
+                    "172.18.62.73:28443": {
+                      "index": 12,
+                      "text": "172.18.62.73 - DIR1 - Prod DC Replication"
+                    },
+                    "172.18.62.73:8443": {
+                      "index": 13,
+                      "text": "172.18.62.73 - DIR1 - Prod DC"
+                    },
+                    "172.18.62.74:18443": {
+                      "index": 14,
+                      "text": "172.18.62.74 - DIR2 - Prod DC Config Store"
+                    },
+                    "172.18.62.74:28443": {
+                      "index": 15,
+                      "text": "172.18.62.74 - DIR2 - Prod DC Replication"
+                    },
+                    "172.18.62.74:8443": {
+                      "index": 16,
+                      "text": "172.18.62.74 - DIR2 - Prod DC"
+                    },
+                    "172.18.62.75:18443": {
+                      "index": 17,
+                      "text": "172.18.62.75 - DIR3 - Prod DC Config Store"
+                    },
+                    "172.18.62.75:28443": {
+                      "index": 18,
+                      "text": "172.18.62.75 - DIR3 - Prod DC Replication"
+                    },
+                    "172.18.62.75:8443": {
+                      "index": 19,
+                      "text": "172.18.62.75 - DIR3 - Prod DC"
+                    },
+                    "172.18.62.76:18443": {
+                      "index": 20,
+                      "text": "172.18.62.76 - DIR4 - Prod DC Config Store"
+                    },
+                    "172.18.62.76:28443": {
+                      "index": 21,
+                      "text": "172.18.62.76 - DIR4 - Prod DC Replication"
+                    },
+                    "172.18.62.76:8443": {
+                      "index": 22,
+                      "text": "172.18.62.76 - DIR4 - Prod DC"
+                    },
+                    "172.18.62.77:8080": {
+                      "index": 23,
+                      "text": "172.18.62.77 - IDM1 - Prod DC"
+                    },
+                    "172.18.62.78:8080": {
+                      "index": 24,
+                      "text": "172.18.62.78 - IDM2 - Prod DC"
+                    },
+                    "172.18.62.79:8080": {
+                      "index": 25,
+                      "text": "172.18.62.79 - IDM3 - Prod DC"
+                    },
+                    "172.18.62.80:8080": {
+                      "index": 26,
+                      "text": "172.18.62.80 - IDM4 - Prod DC"
+                    },
+                    "172.18.62.81:8080": {
+                      "index": 27,
+                      "text": "172.18.62.81 - IG1 - Prod DC"
+                    },
+                    "172.18.62.82:8080": {
+                      "index": 28,
+                      "text": "172.18.62.82 - IG2 - Prod DC"
+                    },
+                    "172.18.62.83:8080": {
+                      "index": 29,
+                      "text": "172.18.62.83 - IG3 - Prod DC"
+                    },
+                    "172.18.62.84:8080": {
+                      "index": 30,
+                      "text": "172.18.62.84 - IG4 - Prod DC"
+                    }
+                  },
+                  "type": "value"
+                }
+              ],
+              "max": 1,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "percentunit"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Server Name"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.width",
+                    "value": 305
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Status (min)"
+                },
+                "properties": [
+                  {
+                    "id": "mappings",
+                    "value": [
+                      {
+                        "options": {
+                          "0": {
+                            "index": 1,
+                            "text": "Service Down"
+                          },
+                          "1": {
+                            "index": 0,
+                            "text": "Service Running"
+                          }
+                        },
+                        "type": "value"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 33,
+            "w": 24,
+            "x": 0,
+            "y": 28
+          },
+          "id": 13,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "9.2.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "GoWHygcSk"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "(min_over_time(up{instance!=\"172.18.62.66:8080\",instance!=\"localhost:9090\",instance!=\"localhost:9115\",job!=\"node\",job!=\"blackbox\"}[1m]))",
+              "format": "table",
+              "legendFormat": "CPU",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Service IAM Staging",
+          "transformations": [
+            {
+              "id": "groupBy",
+              "options": {
+                "fields": {
+                  "Value": {
+                    "aggregations": [
+                      "min"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Value #A": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Value #B": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Value #C": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Value #D": {
+                    "aggregations": []
+                  },
+                  "Value #E": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "instance": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  }
+                }
+              }
+            },
+            {
+              "id": "joinByField",
+              "options": {
+                "byField": "instance",
+                "mode": "outer"
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {},
+                "indexByName": {},
+                "renameByName": {
+                  "Value #A (max)": "CPU (max)",
+                  "Value #B (max)": "Memory (max)",
+                  "Value #C (max)": "Storage (max) ",
+                  "Value #C (min)": "Status",
+                  "Value #D (max)": "Storage (max)",
+                  "Value #D (min)": "Status (min)",
+                  "Value #E (max)": "Storage DB (max)",
+                  "Value (min)": "Status (min)",
+                  "instance": "Server Name"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        }
+      ],
+      "title": "Current Monitoring Table",
+      "type": "row"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 37,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Staging Report Alerting Dashboard",
+  "uid": "LG6bl_cSk",
+  "version": 3,
+  "weekStart": ""
+}
