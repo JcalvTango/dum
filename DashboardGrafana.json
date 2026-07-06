@@ -1,0 +1,612 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "GoWHygcSk"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-GrYlRd"
+              },
+              "custom": {
+                "align": "center",
+                "displayMode": "color-background",
+                "filterable": true,
+                "inspect": false
+              },
+              "decimals": 2,
+              "mappings": [
+                {
+                  "options": {
+                    "10.194.212.1:9100": {
+                      "index": 0,
+                      "text": "10.194.212.1 - PTMJTLDEVIGAAP1"
+                    },
+                    "10.194.212.3:9100": {
+                      "index": 1,
+                      "text": "10.194.212.3 - PTMJTLSTGIGAAP1"
+                    },
+                    "10.194.212.4:9100": {
+                      "index": 2,
+                      "text": "10.194.212.4 - PTMJTLSTGIGAAP2"
+                    },
+                    "10.194.212.5:9100": {
+                      "index": 3,
+                      "text": "10.194.212.5 - PTMJTLSTGIGAAP3"
+                    },
+                    "10.194.212.6:9100": {
+                      "index": 4,
+                      "text": "10.194.212.6 - PTMJTLSTGIGAAP4"
+                    }
+                  },
+                  "type": "value"
+                }
+              ],
+              "max": 1,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "percentunit"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Server Name"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.width",
+                    "value": 305
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 12,
+            "w": 24,
+            "x": 0,
+            "y": 1
+          },
+          "id": 101,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "9.2.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "GoWHygcSk"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "(sum by(instance) (irate(node_cpu_seconds_total{job=\"node\", mode!=\"idle\"}[5m])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{job=\"node\"}[5m]))))",
+              "format": "table",
+              "legendFormat": "CPU",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "GoWHygcSk"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "1 - ((node_memory_MemAvailable_bytes{job=\"node\"}) / (node_memory_MemTotal_bytes{job=\"node\"}))",
+              "format": "table",
+              "hide": false,
+              "legendFormat": "Memory",
+              "range": true,
+              "refId": "B"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "GoWHygcSk"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "1 - ((node_filesystem_avail_bytes{job=\"node\", fstype!=\"tmpfs\", mountpoint=\"/\"}) / (node_filesystem_size_bytes{job=\"node\", fstype!=\"tmpfs\", mountpoint=\"/\"}))",
+              "format": "table",
+              "hide": false,
+              "legendFormat": "Storage",
+              "range": true,
+              "refId": "C"
+            }
+          ],
+          "title": "Utilization - Node Exporter (RHEL Servers)",
+          "transformations": [
+            {
+              "id": "groupBy",
+              "options": {
+                "fields": {
+                  "Value #A": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Value #B": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Value #C": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "instance": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  }
+                }
+              }
+            },
+            {
+              "id": "joinByField",
+              "options": {
+                "byField": "instance",
+                "mode": "outer"
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {},
+                "indexByName": {},
+                "renameByName": {
+                  "Value #A (max)": "CPU (max)",
+                  "Value #B (max)": "Memory (max)",
+                  "Value #C (max)": "Storage (max)",
+                  "instance": "Server Name"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        }
+      ],
+      "title": "Node Exporter Monitoring (RHEL)",
+      "type": "row"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 13
+      },
+      "id": 2,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "GoWHygcSk"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "continuous-GrYlRd"
+              },
+              "custom": {
+                "align": "center",
+                "displayMode": "color-background",
+                "filterable": true,
+                "inspect": false
+              },
+              "decimals": 2,
+              "mappings": [
+                {
+                  "options": {
+                    "10.194.212.2:9182": {
+                      "index": 0,
+                      "text": "10.194.212.2 - PTMJTLDEVIGAAP2"
+                    },
+                    "10.194.212.7:9182": {
+                      "index": 1,
+                      "text": "10.194.212.7 - PTMJTLSTGIGAAP5"
+                    },
+                    "10.194.212.8:9182": {
+                      "index": 2,
+                      "text": "10.194.212.8 - PTMJTLSTGIGAAP6"
+                    },
+                    "10.194.212.9:9182": {
+                      "index": 3,
+                      "text": "10.194.212.9 - PTMJTLSTGIGADB1"
+                    },
+                    "10.194.212.10:9182": {
+                      "index": 4,
+                      "text": "10.194.212.10 - PTMJTLSTGIGADB2"
+                    },
+                    "10.194.212.11:9182": {
+                      "index": 5,
+                      "text": "10.194.212.11 - PTMJTLSTGIGADB3"
+                    },
+                    "10.194.212.12:9182": {
+                      "index": 6,
+                      "text": "10.194.212.12 - PTMJTLSTGIGADB4"
+                    }
+                  },
+                  "type": "value"
+                }
+              ],
+              "max": 1,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "percentunit"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Server Name"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.width",
+                    "value": 305
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 12,
+            "w": 24,
+            "x": 0,
+            "y": 1
+          },
+          "id": 201,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "9.2.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "GoWHygcSk"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "(sum by(instance) (irate(windows_cpu_time_total{job=\"winex\", mode!=\"idle\"}[5m])) / on(instance) group_left sum by (instance)((irate(windows_cpu_time_total{job=\"winex\"}[5m]))))",
+              "format": "table",
+              "legendFormat": "CPU",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "GoWHygcSk"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "1 - ((windows_memory_available_bytes{job=\"winex\"}) / (windows_cs_physical_memory_bytes{job=\"winex\"}))",
+              "format": "table",
+              "hide": false,
+              "legendFormat": "Memory",
+              "range": true,
+              "refId": "B"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "GoWHygcSk"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "1 - ((windows_logical_disk_free_bytes{job=\"winex\", volume=\"C:\"}) / (windows_logical_disk_size_bytes{job=\"winex\", volume=\"C:\"}))",
+              "format": "table",
+              "hide": false,
+              "legendFormat": "Storage",
+              "range": true,
+              "refId": "C"
+            }
+          ],
+          "title": "Utilization - Windows Exporter (Windows Servers)",
+          "transformations": [
+            {
+              "id": "groupBy",
+              "options": {
+                "fields": {
+                  "Value #A": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Value #B": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "Value #C": {
+                    "aggregations": [
+                      "max"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "instance": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  }
+                }
+              }
+            },
+            {
+              "id": "joinByField",
+              "options": {
+                "byField": "instance",
+                "mode": "outer"
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {},
+                "indexByName": {},
+                "renameByName": {
+                  "Value #A (max)": "CPU (max)",
+                  "Value #B (max)": "Memory (max)",
+                  "Value #C (max)": "Storage (max)",
+                  "instance": "Server Name"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        }
+      ],
+      "title": "Windows Exporter Monitoring (Windows)",
+      "type": "row"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 26
+      },
+      "id": 3,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "GoWHygcSk"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "center",
+                "displayMode": "color-background",
+                "filterable": true,
+                "inspect": false
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "0": {
+                      "color": "red",
+                      "index": 1,
+                      "text": "DOWN"
+                    },
+                    "1": {
+                      "color": "green",
+                      "index": 0,
+                      "text": "UP"
+                    }
+                  },
+                  "type": "value"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 1
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Target"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "mode": "fixed"
+                    }
+                  },
+                  {
+                    "id": "custom.width",
+                    "value": 400
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 24,
+            "x": 0,
+            "y": 1
+          },
+          "id": 301,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "9.2.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "GoWHygcSk"
+              },
+              "editorMode": "code",
+              "exemplar": true,
+              "expr": "min_over_time(probe_success{job=\"blackbox\"}[5m])",
+              "format": "table",
+              "instant": true,
+              "legendFormat": "Status",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Service Availability - Blackbox Exporter",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "__name__": true,
+                  "job": true
+                },
+                "indexByName": {},
+                "renameByName": {
+                  "instance": "Target",
+                  "Value": "Status"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        }
+      ],
+      "title": "Blackbox Exporter Monitoring (Service Availability)",
+      "type": "row"
+    }
+  ],
+  "refresh": "1m",
+  "schemaVersion": 37,
+  "style": "dark",
+  "tags": [
+    "iga",
+    "monitoring"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "IGA Dev & Staging - Server Monitoring",
+  "uid": "iga-dev-stg-monitoring",
+  "version": 1,
+  "weekStart": ""
+}
