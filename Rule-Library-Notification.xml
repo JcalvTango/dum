@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule language="beanshell" name="Rule-Library-Notification">
+  <Description>
+    Library terpusat untuk seluruh notifikasi email JML dan LCM.
+    Kontrak: TIDAK PERNAH melempar exception ke pemanggil.
+    Kegagalan SMTP/DB hanya dicatat di log (graceful degradation).
+  </Description>
+  <Source><![CDATA[
+  import sailpoint.object.Identity;
+  import sailpoint.object.EmailTemplate;
+  import sailpoint.object.EmailOptions;
+  import sailpoint.object.Application;
+  import sailpoint.object.Attributes;
+  import java.sql.Connection;
+  import java.sql.PreparedStatement;
+  import java.sql.ResultSet;
+  import java.util.ArrayList;
+  import java.util.List;
+  import java.util.Map;
+  import java.util.HashMap;
+  import org.apache.log4j.Logger;
+
+  Logger notifLog = Logger.getLogger("rule.pertamina.notification");
+
+  /**
+   * Ambil koneksi ke iga_config lewat Application object terenkripsi.
+   * (Pola sama dengan Rule-Library-Mover — kredensial tidak pernah
+   * ditulis di rule.)
+   */
+  public Connection bukaKoneksiIgaConfig() throws Exception {
+      Application app = context.getObjectByName(Application.class, "IGA Config DB");
+      if (app == null) {
+          throw new Exception("Application 'IGA Config DB' tidak ditemukan");
+      }
+      return sailpoint.connector.JDBCConnector.getConnection(
+          app, app.getAttributes());
+  }
+
+  /**
+   * Cari semua email IT untuk sebuah companyCode (semantik UNION —
+   * ambil semua baris aktif, sama seperti birthright mapping).
+   * Return: List<String> — bisa kosong, TIDAK pernah null.
+   */
+  public List ambilEmailItByCompanyCode(String companyCode) {
+      List hasil = new ArrayList();
+      if (companyCode == null || companyCode.trim().length() == 0) {
+          return hasil;
+      }
+      Connection conn = null;
+      PreparedStatement ps = null;
+      ResultSet rs = null;
+      try {
+          conn = bukaKoneksiIgaConfig();
+          ps = conn.prepareStatement(
+              "SELECT it_email FROM dbo.it_email_mapping " +
+              "WHERE company_code = ? AND is_active = 1");
+          ps.setString(1, companyCode.trim());
+          rs = ps.executeQuery();
+          while (rs.next()) {
+              String email = rs.getString("it_email");
+              if (email != null && email.trim().length() > 0) {
+                  hasil.add(email.trim());
+              }
+          }
+      } catch (Exception e) {
+          // Graceful degradation: notifikasi tetap dikirim ke
+          // penerima lain walau lookup IT gagal.
+          notifLog.error("Gagal lookup email IT untuk companyCode="
+              + companyCode, e);
+      } finally {
+          try { if (rs != null) rs.close(); } catch (Exception ig) {}
+          try { if (ps != null) ps.close(); } catch (Exception ig) {}
+          try { if (conn != null) conn.close(); } catch (Exception ig) {}
+      }
+      return hasil;
+  }
+
+  /**
+   * Ambil email manager. Prioritas:
+   * 1. Atribut managerEmail di identity (kalau di-mapping dari HRIS+)
+   * 2. Atribut email pada objek Identity manager
+   */
+  public String ambilEmailManager(Identity identity) {
+      if (identity == null) return null;
+      String managerEmail = (String) identity.getAttribute("managerEmail");
+      if (managerEmail != null && managerEmail.trim().length() > 0) {
+          return managerEmail.trim();
+      }
+      Identity manager = identity.getManager();
+      if (manager != null) {
+          return manager.getEmail();
+      }
+      return null;
+  }
+
+  /**
+   * Fungsi kirim inti. SEMUA notifikasi lewat sini.
+   * - templateName : nama EmailTemplate di IIQ
+   * - toList       : List<String> alamat penerima (digabung jadi To)
+   * - vars         : Map variabel untuk Velocity
+   * Kontrak: return true kalau terkirim, false kalau gagal.
+   * TIDAK melempar exception — provisioning tidak boleh terblokir.
+   */
+  public boolean kirimNotifikasi(String templateName, List toList, Map vars) {
+      try {
+          if (toList == null || toList.isEmpty()) {
+              notifLog.warn("Notifikasi '" + templateName
+                  + "' dibatalkan: tidak ada penerima");
+              return false;
+          }
+          EmailTemplate template = context.getObjectByName(
+              EmailTemplate.class, templateName);
+          if (template == null) {
+              notifLog.error("EmailTemplate '" + templateName
+                  + "' tidak ditemukan");
+              return false;
+          }
+          // Gabung penerima jadi CSV — EmailOptions menerima
+          // string alamat dipisah koma.
+          StringBuilder sb = new StringBuilder();
+          for (int i = 0; i < toList.size(); i++) {
+              if (i > 0) sb.append(",");
+              sb.append((String) toList.get(i));
+          }
+          EmailOptions options = new EmailOptions(sb.toString(),
+              new Attributes(vars));
+          context.sendEmailNotification(template, options);
+          notifLog.info("Notifikasi '" + templateName
+              + "' terkirim ke: " + sb.toString());
+          return true;
+      } catch (Exception e) {
+          notifLog.error("Gagal kirim notifikasi '" + templateName + "'", e);
+          return false;
+      }
+  }
+
+  /**
+   * Helper: susun daftar penerima standar JML =
+   * personalEmail + managerEmail + semua email IT per companyCode.
+   * Flag boolean mengontrol komposisi per flow:
+   *   Joiner/Mover : sertakanPersonal = true
+   *   Leaver       : sertakanPersonal = false (akun sudah dicabut)
+   */
+  public List susunPenerimaJml(Identity identity, boolean sertakanPersonal) {
+      List penerima = new ArrayList();
+      if (identity == null) return penerima;
+
+      if (sertakanPersonal) {
+          String personal = (String) identity.getAttribute("personalEmail");
+          if (personal != null && personal.trim().length() > 0) {
+              penerima.add(personal.trim());
+          }
+      }
+      String managerEmail = ambilEmailManager(identity);
+      if (managerEmail != null) {
+          penerima.add(managerEmail);
+      }
+      String companyCode = (String) identity.getAttribute("companyCode");
+      penerima.addAll(ambilEmailItByCompanyCode(companyCode));
+
+      return penerima;
+  }
+  ]]></Source>
+</Rule>
