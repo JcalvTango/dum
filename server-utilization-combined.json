@@ -1,0 +1,617 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": false,
+      "datasource": "prometheus",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "panels": [],
+      "title": "Linux Servers (Node Exporter)",
+      "type": "row"
+    },
+    {
+      "datasource": "prometheus",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 101,
+      "title": "CPU Usage - All Linux Servers",
+      "type": "timeseries",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": true
+          },
+          "min": 0,
+          "max": 100
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "mean",
+            "max",
+            "last"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "( (100 - (avg by (instance) (irate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)) * on(instance) group_left(nodename) node_uname_info )\nor\n( 100 - (avg by (instance) (irate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100) )",
+          "legendFormat": "{{nodename}}{{instance}}",
+          "refId": "A",
+          "datasource": "prometheus"
+        }
+      ]
+    },
+    {
+      "datasource": "prometheus",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 102,
+      "title": "Memory Usage - All Linux Servers",
+      "type": "timeseries",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": true
+          },
+          "min": 0,
+          "max": 100
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "mean",
+            "max",
+            "last"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "( ((1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100) * on(instance) group_left(nodename) node_uname_info )\nor\n( (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 )",
+          "legendFormat": "{{nodename}}{{instance}}",
+          "refId": "A",
+          "datasource": "prometheus"
+        }
+      ]
+    },
+    {
+      "datasource": "prometheus",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
+      "id": 103,
+      "title": "Storage Usage - All Linux Servers",
+      "type": "timeseries",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": true
+          },
+          "min": 0,
+          "max": 100
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "mean",
+            "max",
+            "last"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "( (100 - ((node_filesystem_avail_bytes{fstype!~\"tmpfs|overlay|squashfs\"} * 100) / node_filesystem_size_bytes{fstype!~\"tmpfs|overlay|squashfs\"})) * on(instance) group_left(nodename) node_uname_info )\nor\n( 100 - ((node_filesystem_avail_bytes{fstype!~\"tmpfs|overlay|squashfs\"} * 100) / node_filesystem_size_bytes{fstype!~\"tmpfs|overlay|squashfs\"}) )",
+          "legendFormat": "{{nodename}}{{instance}} - {{mountpoint}}",
+          "refId": "A",
+          "datasource": "prometheus"
+        }
+      ]
+    },
+    {
+      "datasource": "prometheus",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 25
+      },
+      "id": 104,
+      "title": "Disk I/O - All Linux Servers",
+      "type": "timeseries",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps",
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": true
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/Read/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "mean",
+            "max",
+            "last"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "( (irate(node_disk_read_bytes_total{device=~\"[a-z]+|nvme[0-9]+n[0-9]+\"}[5m])) * on(instance) group_left(nodename) node_uname_info )\nor\n( irate(node_disk_read_bytes_total{device=~\"[a-z]+|nvme[0-9]+n[0-9]+\"}[5m]) )",
+          "legendFormat": "{{nodename}}{{instance}} - {{device}} Read",
+          "refId": "A",
+          "datasource": "prometheus"
+        },
+        {
+          "expr": "( (irate(node_disk_written_bytes_total{device=~\"[a-z]+|nvme[0-9]+n[0-9]+\"}[5m])) * on(instance) group_left(nodename) node_uname_info )\nor\n( irate(node_disk_written_bytes_total{device=~\"[a-z]+|nvme[0-9]+n[0-9]+\"}[5m]) )",
+          "legendFormat": "{{nodename}}{{instance}} - {{device}} Write",
+          "refId": "B",
+          "datasource": "prometheus"
+        }
+      ]
+    },
+    {
+      "datasource": "prometheus",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 33
+      },
+      "id": 105,
+      "title": "Network Traffic - All Linux Servers",
+      "type": "timeseries",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bps",
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": true
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/Receive/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "mean",
+            "max",
+            "last"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "( (irate(node_network_receive_bytes_total{device!~\"lo\"}[5m]) * 8) * on(instance) group_left(nodename) node_uname_info )\nor\n( irate(node_network_receive_bytes_total{device!~\"lo\"}[5m]) * 8 )",
+          "legendFormat": "{{nodename}}{{instance}} - {{device}} Receive",
+          "refId": "A",
+          "datasource": "prometheus"
+        },
+        {
+          "expr": "( (irate(node_network_transmit_bytes_total{device!~\"lo\"}[5m]) * 8) * on(instance) group_left(nodename) node_uname_info )\nor\n( irate(node_network_transmit_bytes_total{device!~\"lo\"}[5m]) * 8 )",
+          "legendFormat": "{{nodename}}{{instance}} - {{device}} Transmit",
+          "refId": "B",
+          "datasource": "prometheus"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "datasource": "prometheus",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 41
+      },
+      "id": 2,
+      "panels": [],
+      "title": "Windows Servers (Windows Exporter)",
+      "type": "row"
+    },
+    {
+      "datasource": "prometheus",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 42
+      },
+      "id": 201,
+      "title": "CPU Usage - All Windows Servers",
+      "type": "timeseries",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": true
+          },
+          "min": 0,
+          "max": 100
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "mean",
+            "max",
+            "last"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "( (100 - (avg by (instance) (rate(windows_cpu_time_total{mode=\"idle\"}[5m])) * 100)) * on(instance) group_left(hostname) windows_cs_hostname )\nor\n( 100 - (avg by (instance) (rate(windows_cpu_time_total{mode=\"idle\"}[5m])) * 100) )",
+          "legendFormat": "{{hostname}}{{instance}}",
+          "refId": "A",
+          "datasource": "prometheus"
+        }
+      ]
+    },
+    {
+      "datasource": "prometheus",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 50
+      },
+      "id": 202,
+      "title": "Memory Usage - All Windows Servers",
+      "type": "timeseries",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": true
+          },
+          "min": 0,
+          "max": 100
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "mean",
+            "max",
+            "last"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "( ((1 - (windows_os_physical_memory_free_bytes / windows_cs_physical_memory_bytes)) * 100) * on(instance) group_left(hostname) windows_cs_hostname )\nor\n( (1 - (windows_os_physical_memory_free_bytes / windows_cs_physical_memory_bytes)) * 100 )",
+          "legendFormat": "{{hostname}}{{instance}}",
+          "refId": "A",
+          "datasource": "prometheus"
+        }
+      ]
+    },
+    {
+      "datasource": "prometheus",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 58
+      },
+      "id": 203,
+      "title": "Storage Usage - All Windows Servers",
+      "type": "timeseries",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": true
+          },
+          "min": 0,
+          "max": 100
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "mean",
+            "max",
+            "last"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "( (100 - ((windows_logical_disk_free_bytes{volume!~\"HarddiskVolume.+\"} * 100) / windows_logical_disk_size_bytes{volume!~\"HarddiskVolume.+\"})) * on(instance) group_left(hostname) windows_cs_hostname )\nor\n( 100 - ((windows_logical_disk_free_bytes{volume!~\"HarddiskVolume.+\"} * 100) / windows_logical_disk_size_bytes{volume!~\"HarddiskVolume.+\"}) )",
+          "legendFormat": "{{hostname}}{{instance}} - {{volume}}",
+          "refId": "A",
+          "datasource": "prometheus"
+        }
+      ]
+    },
+    {
+      "datasource": "prometheus",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 66
+      },
+      "id": 204,
+      "title": "Disk I/O - All Windows Servers",
+      "type": "timeseries",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps",
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": true
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/Read/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "mean",
+            "max",
+            "last"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "( (irate(windows_logical_disk_read_bytes_total{volume!~\"HarddiskVolume.+\"}[5m])) * on(instance) group_left(hostname) windows_cs_hostname )\nor\n( irate(windows_logical_disk_read_bytes_total{volume!~\"HarddiskVolume.+\"}[5m]) )",
+          "legendFormat": "{{hostname}}{{instance}} - {{volume}} Read",
+          "refId": "A",
+          "datasource": "prometheus"
+        },
+        {
+          "expr": "( (irate(windows_logical_disk_write_bytes_total{volume!~\"HarddiskVolume.+\"}[5m])) * on(instance) group_left(hostname) windows_cs_hostname )\nor\n( irate(windows_logical_disk_write_bytes_total{volume!~\"HarddiskVolume.+\"}[5m]) )",
+          "legendFormat": "{{hostname}}{{instance}} - {{volume}} Write",
+          "refId": "B",
+          "datasource": "prometheus"
+        }
+      ]
+    },
+    {
+      "datasource": "prometheus",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 74
+      },
+      "id": 205,
+      "title": "Network Traffic - All Windows Servers",
+      "type": "timeseries",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bps",
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "lineWidth": 1,
+            "spanNulls": true
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/Receive/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "calcs": [
+            "mean",
+            "max",
+            "last"
+          ]
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "expr": "( (irate(windows_net_bytes_received_total[5m]) * 8) * on(instance) group_left(hostname) windows_cs_hostname )\nor\n( irate(windows_net_bytes_received_total[5m]) * 8 )",
+          "legendFormat": "{{hostname}}{{instance}} - Receive",
+          "refId": "A",
+          "datasource": "prometheus"
+        },
+        {
+          "expr": "( (irate(windows_net_bytes_sent_total[5m]) * 8) * on(instance) group_left(hostname) windows_cs_hostname )\nor\n( irate(windows_net_bytes_sent_total[5m]) * 8 )",
+          "legendFormat": "{{hostname}}{{instance}} - Transmit",
+          "refId": "B",
+          "datasource": "prometheus"
+        }
+      ]
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [
+    "server-utilization",
+    "node-exporter",
+    "windows-exporter"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Server Utilization - Linux & Windows (All Servers)",
+  "uid": "server-util-linux-windows",
+  "version": 1
+}
